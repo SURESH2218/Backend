@@ -4,7 +4,30 @@ import express from "express";
 import { DB_NAME } from "./constants.js";
 import connectDB from "./db/index.js";
 
-connectDB();
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`Server is running at port :${PORT}`);
+    });
+  })
+  .catch((err) => console.log("Mongo db connnection failed", err));
+
+//or
+
+//   const startServer = async () => {
+//     try {
+//       await connectDB();
+//       const PORT = process.env.PORT || 8000;
+//       app.listen(PORT, () => {
+//         console.log(`Server is running at port: ${PORT}`);
+//       });
+//     } catch (error) {
+//       console.error("Failed to start the server:", error);
+//       process.exit(1); // Exit the process with failure code
+//     }
+//   };
+
+//   startServer();
 
 //iife
 // (async () => {
