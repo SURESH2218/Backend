@@ -22,6 +22,6 @@ app.use(cookieParser());
 import userRouter from "./routes/user.route.js";
 
 app.use("/users", userRouter);
-console.log("User routes registered");
+// console.log("User routes registered");
 
 export default app;
