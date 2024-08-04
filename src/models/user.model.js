@@ -10,7 +10,7 @@ const UserSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      index: true, //userful in searching
+      index: true, // useful in searching
     },
     email: {
       type: String,
@@ -52,10 +52,10 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", async function (next) {
-  if (this.isModified) {
+  if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
-    next();
-  } else return;
+  }
+  next();
 });
 
 UserSchema.methods.isPasswordCorrect = async function (password) {
@@ -76,6 +76,7 @@ UserSchema.methods.generateAccessToken = function () {
     }
   );
 };
+
 UserSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
